@@ -3,8 +3,25 @@
 
   <head>
     <meta charset="utf-8">
+
     <title>ZhAYinG| week-4-game </title>
-    <script src="assets/js/game.js"></script>
+
+    <!-- import css tools -->
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+          crossorigin="anonymous">
+
+    <!-- custom css styles -->
+    <link rel="stylesheet" href="styles.css">
+
+    <!-- import css and js tools -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+            integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+            crossorigin="anonymous"></script>
+
+    <!-- custom js -->
+
   </head>
 
   <body>
@@ -24,21 +41,21 @@
 
     <div id="aiRandomNum">
       <h4>HAL's Random #</h4>
-      <span>0</span>
+      <span id="sp-aiRandomNum">0</span>
     </div>
 
     <div id="scoreCard">
       <h4>Score Card</h4>
-      <p>Wins: <span>0</span></p>
-      <p>Losses: <span>0</span></p>
+      <p>Wins: <span id="sp-wins">0</span></p>
+      <p>Losses: <span id="sp-losses">0</span></p>
     </div>
 
     <div id="cystalJar">
       <ul id="crystals">
-        <li id="rock01"><img src="assets/img/red.jpg" alt="red crystal" height="42" width="42" /></li>
-        <li id="rock02"><img src="assets/img/blue.jpg" alt="blue crystal" height="42" width="42" /></li>
-        <li id="rock03"><img src="assets/img/yellow.jpg" alt="yellow crystal" height="42" width="42" /></li>
-        <li id="rock04"><img src="assets/img/green.jpg" alt="green crystal" height="42" width="42" /></li>
+        <li><img id="redCrystal" src="assets/img/red.jpg" alt="red crystal" height="42" width="42" /></li>
+        <li><img id="blueCrystal" src="assets/img/blue.jpg" alt="blue crystal" height="42" width="42" /></li>
+        <li><img id="yellowCrystal" src="assets/img/yellow.jpg" alt="yellow crystal" height="42" width="42" /></li>
+        <li><img id="greenCrystal" src="assets/img/green.jpg" alt="green crystal" height="42" width="42" /></li>
       </ul>
     </div>
 
@@ -46,14 +63,14 @@
       <h3>Your total score is:</h3>
     </div>
 
-    <div id="score">
-      <span>0</span>
+    <div id="scoreTotal">
+      <span id="sp-totalScore">0</span>
     </div>
 
     <footer>
       <p id="whodat">Writtten by: ZhAYinG</p>
     </footer>
-
+    <script src="assets/js/game.js"></script>
   </body>
 
 </html>

@@ -24,10 +24,10 @@ To that end, do not refresh the page as a means to restart the game.
 
 
 /* ----------BGN PSEUDO CODE-----------
-01. Create a random number generator for the ai from 19-120.
-02. Create a random number generator for the crystals from 1-12.
-03. Create an object to collect all the values from the clicked crystals.
-04. Create an algorithm that adds the collected values from click events.
+-01. Create a random number generator for the ai from 19-120.
+-02. Create a random number generator for the crystals from 1-12.
+-03. Create an object to collect all the values from the clicked crystals.
+-04. Create an algorithm that adds the collected values from click events.
 05. Create an notification function to alert the user of a win or a loss.
 06. Create update function for variables
     a. if there is a win update the win variable by 1
@@ -58,10 +58,195 @@ To that end, do not refresh the page as a means to restart the game.
 
 /* --------BGN CODE----------------- */
 
-// VARIABLES
+// BGN VARIABLES
+var bucket      = [];
+var totalScore  = 0;
+// END VARIABLES
 
-// FUNCTIONS
+// BGN FUNCTIONS
 
-// LOGIC
+// RANDOM NUMBER BETWEEN TWO VALUES
+function getRandomArbitrary(min, max) {/* https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random */
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min)) + min; //The maximum is exclusive and the minimum is inclusive
+
+}//fun getRandomArbitrary
+
+// RANDOM NUMBER FOR AI
+var aiRandom = function(min,max){
+  // VARIABLES
+  var aiRandomNum = 0;
+  // function name
+  console.log("aiRandom FUN");
+  // call random number generator
+  aiRandomNum = getRandomArbitrary(min, max);
+  // Testing
+  //console.log("aiRandomNum:",aiRandomNum);
+  return aiRandomNum;
+
+};//fun aiRandom
+
+// RANDOM NUMBER FOR CRYSTALS
+var crystalRandom = function(min,max,name){
+  // VARIABLES
+  var crystalRandomNum = 0;
+  var _name = name;
+  // function name
+  console.log("crystalRandom FUN for " + name);
+  // call random number generator
+  crystalRandomNum = getRandomArbitrary(min, max);
+  // Testing
+  //console.log("crystalRandomNum:",name + ',' + crystalRandomNum);
+  return crystalRandomNum;
+
+};//fun crystalRandom
+
+// CRYSTAL NUMBER COLLECTOR
+var crystalCollector = function(crystalNumber) {
+  //ADD crystal numbers to the array
+  bucket.push(crystalNumber);
+  //Testing
+  console.log("crystalBucket:",bucket);
+  return bucket;
+
+};//fun crystalCollector
+
+// CRYSTAL BUCKET ADDER
+var bucketAdder = function(arrayOfNumbers) {
+  //VARIABLES
+  var total   = 0;
+  // Loop through array and add values to total
+  for (var number in arrayOfNumbers) {
+    //VARIABLES
+    var value = arrayOfNumbers[number];
+    //ADD ARRAY values together
+    total += value;
+    //Testing
+    // console.log("index",number);
+    // console.log("arrayOfNumbers",arrayOfNumbers);
+    // console.log("value",value);
+    console.log("_total:",total);
+
+  }//END for
+  return total;
+
+};//fun bucketAdder
+
+// END FUNCTIONS
+
+// BGN NOTES
+/* HTML id's list
+    <section id="instructions">
+    <div id="aiRandomNum">
+      <span id="sp-aiRandomNum">0</span>
+    <div id="scoreCard">
+      <p>Wins: <span id="sp-wins">0</span></p>
+      <p>Losses: <span id="sp-losses">0</span></p>
+    <div id="cystalJar">
+      <ul id="crystals">
+        <li><img id="rock01" src="assets/img/red.jpg" alt="red crystal" height="42" width="42" /></li>
+        <li><img id="rock02" src="assets/img/blue.jpg" alt="blue crystal" height="42" width="42" /></li>
+        <li><img id="rock03" src="assets/img/yellow.jpg" alt="yellow crystal" height="42" width="42" /></li>
+        <li><img id="rock04" src="assets/img/green.jpg" alt="green crystal" height="42" width="42" /></li>
+    <div id="scoreLabel">
+    <div id="scoreTotal">
+      <span id="sp-totalScore">0</span>
+      <p id="whodat">Writtten by: ZhAYinG</p>
+*/
+// END NOTES
+
+// BGN LOGIC
+$(document).ready(function(){
+  // name for this ai
+  var halRandomNum         = aiRandom(19, 121); //(inclusive,exclusive)
+
+  //Testing
+  console.log("hal:",halRandomNum);
+
+  //Assign the random ai number to the ui.
+  var uiHal = $("#sp-aiRandomNum");
+  uiHal.text(halRandomNum);
+
+  // name for the crystals
+  var redCrystal     = crystalRandom(1, 13, 'redCrystal');    //(inclusive,exclusive,rockName)
+  var blueCrystal    = crystalRandom(1, 13, 'blueCrystal');   //(inclusive,exclusive,rockName)
+  var yellowCrystal  = crystalRandom(1, 13, 'yellowCrystal'); //(inclusive,exclusive,rockName)
+  var greenCrystal   = crystalRandom(1, 13, 'greenCrystal');  //(inclusive,exclusive,rockName)
+  //Testing
+  //var allCrystals = redCrystal +","+ blueCrystal +","+ yellowCrystal +","+ greenCrystal;
+  //console.log( 'rbyg Crystal:', allCrystals);
+
+  //Assign the random crystal number to the ui.
+  var uiRedCrystal = $("#redCrystal");
+  uiRedCrystal.click(function() {
+    //Testing
+    //console.log("uiRedCrystal:",redCrystal);
+    //Add crystal to bucket
+    var redBucket = crystalCollector(redCrystal);
+    //Testing
+    console.log("redBucket",redBucket);
+    //Consume array and add VALUES
+    totalScore = bucketAdder(redBucket);
+    //Assign the totalSocre number to the ui.
+    var uiTotalScore = $("#sp-totalScore");
+    uiTotalScore.text(totalScore);
+
+  });//uiRedCrystal
+
+  var uiBlueCrystal = $("#blueCrystal");
+  uiBlueCrystal.click(function() {
+    //Testing
+    console.log("uiBlueCrystal:",blueCrystal);
+    //Add crystal to bucket
+    var blueBucket = crystalCollector(blueCrystal);
+    //Testing
+    console.log("blueBucket",blueBucket);
+    //Consume array and add VALUES
+    totalScore = bucketAdder(blueBucket);
+    //Assign the totalSocre number to the ui.
+    var uiTotalScore = $("#sp-totalScore");
+    uiTotalScore.text(totalScore);
+
+  });//uiBlueCrystal
+
+  var uiYellowCrystal = $("#yellowCrystal");
+  uiYellowCrystal.click(function() {
+    //Testing
+    console.log("uiYellowCrystal:",yellowCrystal);
+    //Add crystal to bucket
+    var yellowBucket = crystalCollector(yellowCrystal);
+    //Testing
+    console.log("yellowBucket",yellowBucket);
+    //Consume array and add VALUES
+    totalScore = bucketAdder(yellowBucket);
+    //Assign the totalSocre number to the ui.
+    var uiTotalScore = $("#sp-totalScore");
+    uiTotalScore.text(totalScore);
+
+  });//uiYellowCrystal
+
+  var uiGreenCrystal = $("#greenCrystal");
+  uiGreenCrystal.click(function() {
+    //Testing
+    console.log("uiGreenCrystal:",greenCrystal);
+    //Add crystal to bucket
+    var greenBucket = crystalCollector(greenCrystal);
+    //Testing
+    console.log("greenBucket",greenBucket);
+    //Consume array and add VALUES
+    totalScore = bucketAdder(greenBucket);
+    //Assign the totalSocre number to the ui.
+    var uiTotalScore = $("#sp-totalScore");
+    uiTotalScore.text(totalScore);
+
+  });//uiGreenCrystal
+
+  //Check who has won
+
+
+});//document.ready
+
+// END LOGIC
 
 /*--------END CODE---------------*/
