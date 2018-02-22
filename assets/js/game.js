@@ -59,8 +59,9 @@ To that end, do not refresh the page as a means to restart the game.
 /* --------BGN CODE----------------- */
 
 // BGN VARIABLES
-var bucket      = [];
-var totalScore  = 0;
+var bucket        = [];
+var totalScore    = 0;
+var halRandomNum  = 0;
 // END VARIABLES
 
 // BGN FUNCTIONS
@@ -131,7 +132,31 @@ var bucketAdder = function(arrayOfNumbers) {
   }//END for
   return total;
 
-};//fun bucketAdder
+};//fun
+
+var whoWon = function() {
+  //Check who has won
+  console.log("won totalScore typeof",typeof(totalScore) +","+ totalScore);
+  console.log("won halRandomNum typeof",typeof(halRandomNum) +","+ halRandomNum);
+
+  if(totalScore == halRandomNum) {
+    //VARIABLES
+    var wins = 0;
+    //Testing
+    console.log("You WIN!",wins);
+
+  }//end if
+
+  if(totalScore > halRandomNum) {
+    //VARIABLES
+    var loss = 0;
+    //Testing
+    console.log("You Lose!",loss);
+    //var losses += loss;
+
+  }//end if
+
+}//whoWon
 
 // END FUNCTIONS
 
@@ -159,7 +184,7 @@ var bucketAdder = function(arrayOfNumbers) {
 // BGN LOGIC
 $(document).ready(function(){
   // name for this ai
-  var halRandomNum         = aiRandom(19, 121); //(inclusive,exclusive)
+  halRandomNum         = aiRandom(19, 121); //(inclusive,exclusive)
 
   //Testing
   console.log("hal:",halRandomNum);
@@ -169,10 +194,10 @@ $(document).ready(function(){
   uiHal.text(halRandomNum);
 
   // name for the crystals
-  var redCrystal     = crystalRandom(1, 13, 'redCrystal');    //(inclusive,exclusive,rockName)
-  var blueCrystal    = crystalRandom(1, 13, 'blueCrystal');   //(inclusive,exclusive,rockName)
-  var yellowCrystal  = crystalRandom(1, 13, 'yellowCrystal'); //(inclusive,exclusive,rockName)
-  var greenCrystal   = crystalRandom(1, 13, 'greenCrystal');  //(inclusive,exclusive,rockName)
+  var redCrystal     = crystalRandom(1, 13, 'redCrystal'    );  //(inclusive,exclusive,rockName)
+  var blueCrystal    = crystalRandom(1, 13, 'blueCrystal'   );  //(inclusive,exclusive,rockName)
+  var yellowCrystal  = crystalRandom(1, 13, 'yellowCrystal' );  //(inclusive,exclusive,rockName)
+  var greenCrystal   = crystalRandom(1, 13, 'greenCrystal'  );  //(inclusive,exclusive,rockName)
   //Testing
   //var allCrystals = redCrystal +","+ blueCrystal +","+ yellowCrystal +","+ greenCrystal;
   //console.log( 'rbyg Crystal:', allCrystals);
@@ -185,12 +210,13 @@ $(document).ready(function(){
     //Add crystal to bucket
     var redBucket = crystalCollector(redCrystal);
     //Testing
-    console.log("redBucket",redBucket);
+    //console.log("redBucket",redBucket);
     //Consume array and add VALUES
     totalScore = bucketAdder(redBucket);
     //Assign the totalSocre number to the ui.
     var uiTotalScore = $("#sp-totalScore");
     uiTotalScore.text(totalScore);
+    whoWon();
 
   });//uiRedCrystal
 
@@ -201,12 +227,13 @@ $(document).ready(function(){
     //Add crystal to bucket
     var blueBucket = crystalCollector(blueCrystal);
     //Testing
-    console.log("blueBucket",blueBucket);
+    //console.log("blueBucket",blueBucket);
     //Consume array and add VALUES
     totalScore = bucketAdder(blueBucket);
     //Assign the totalSocre number to the ui.
     var uiTotalScore = $("#sp-totalScore");
     uiTotalScore.text(totalScore);
+    whoWon();
 
   });//uiBlueCrystal
 
@@ -217,12 +244,13 @@ $(document).ready(function(){
     //Add crystal to bucket
     var yellowBucket = crystalCollector(yellowCrystal);
     //Testing
-    console.log("yellowBucket",yellowBucket);
+    //console.log("yellowBucket",yellowBucket);
     //Consume array and add VALUES
     totalScore = bucketAdder(yellowBucket);
     //Assign the totalSocre number to the ui.
     var uiTotalScore = $("#sp-totalScore");
     uiTotalScore.text(totalScore);
+    whoWon();
 
   });//uiYellowCrystal
 
@@ -233,16 +261,15 @@ $(document).ready(function(){
     //Add crystal to bucket
     var greenBucket = crystalCollector(greenCrystal);
     //Testing
-    console.log("greenBucket",greenBucket);
+    //console.log("greenBucket",greenBucket);
     //Consume array and add VALUES
     totalScore = bucketAdder(greenBucket);
     //Assign the totalSocre number to the ui.
     var uiTotalScore = $("#sp-totalScore");
     uiTotalScore.text(totalScore);
+    whoWon();
 
   });//uiGreenCrystal
-
-  //Check who has won
 
 
 });//document.ready
