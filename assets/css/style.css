@@ -1,12 +1,27 @@
 /* CSS */
-
-#container {
-  margin-left: 12px;
+body {
+   background-image: url("../img/bg.jpg");
+   /* background-repeat: round no-repeat; */
+   background-color: #cccccc;
+}
+/*
+font-family: 'Playfair Display SC', serif;
+font-family: 'Audiowide', cursive;
+*/
+header {
+  font-family: 'Audiowide', cursive;
 }
 .crystal {
   padding: 1px;
-   height: 52px;
-    width:  52px;
+   height: 80px;
+    width:  80px;
+}
+#instructions {
+  background-color: #000;
+  color: red;
+  font-family: 'Audiowide', cursive;
+  opacity: 0.88;
+    filter: alpha(opacity=50); /* For IE8 and earlier */
 }
 :root {
 	--bg: #3C465C;
@@ -22,7 +37,7 @@
 .btn {
 	position: relative;
 	margin: 0 auto;
-	width: 80%;
+	width: 35%;
 	color: var(--primary);
 	border: .15em solid var(--primary);
 	border-radius: 4em;
@@ -31,6 +46,7 @@
 	font-size: 1.3em;
 	line-height: 2em;
 	cursor: pointer;
+  padding-bottom: .7em;
 }
 .btn:hover .dot,
 .btn:focus .dot {
@@ -43,4 +59,47 @@
 	50% {transform: translateX(var(--tr-X)) rotate(180deg);}
 	80% {transform: translateX(0) rotate(180deg);}
 	100% {transform: translateX(0) rotate(360deg);}
+}
+.crystalBtn {
+  /* padding: 15px 25px; */
+  font-size: 24px;
+  text-align: center;
+  cursor: pointer;
+  outline: none;
+  color: #fff;
+
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 9px #999;
+}
+
+.crystalBtn:hover {background-color: #3e8e41}
+
+.crystalBtn:active {
+  background-color: #3e8e41;
+  box-shadow: 0 5px #666;
+  transform: translateY(4px);
+}
+/*No Vacancy*/
+.board {
+    text-align: center;
+    border: 1px solid rgba(255,180,0,0.4);
+    border-radius: 4px;
+    width: 95%;
+    margin: 50px auto 0 auto;
+    padding: 20px;
+    background-color: #000;
+}
+
+.board h1 {
+    font-size: 75px;
+    font-family: 'Monoton', cursive;
+    color: #fff;
+    text-transform: uppercase;
+}
+/* Total Score */
+@media only screen and (max-width: 560px) {
+  .board h1 {
+    font-size: 24px;
+  }
 }

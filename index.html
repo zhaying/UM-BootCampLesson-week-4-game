@@ -7,6 +7,7 @@
     <title>ZhAYinG| week-4-game </title>
 
     <!-- import css tools -->
+    <link href="https://fonts.googleapis.com/css?family=Audiowide|Playfair+Display+SC|Monoton" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/reset.css">
     <link rel="stylesheet"
           href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
@@ -22,49 +23,60 @@
             crossorigin="anonymous"></script>
 
     <!-- custom js -->
+    <script src="assets/js/jquery.novacancy.min.js"></script>
 
   </head>
 
   <body>
     <div id="container">
-    <header class="jumbotron">
-      <h1>CrystalCollector!</h1>
+    <header class="jumbotron text-center row h-25 pt-0" id="crystalTitle">
+      <div class="board col-xs-12">
+        <h1>
+          <span id="no">Crystals</span>
+          <span id="vacancy">Collector</span>
+        </h1>
+      </div>
+
     </header>
 
-    <section id="instructions">
-      <h4>Instructions</h4>
-      <p>You will be given a random number at the start of the grame.</p>
-      <p>There are four crystals below.  By clicking on a crystal you will add a specific amount of points to your total score.</p>
-      <p>You win the game by matching your total score to the random number, you lose the game if your total score goes above the random number.</p>
-      <p>The value of each crystal is hidden from you until you click on it.</p>
-      <p>When the game starts, the program will change the values of each crystal.</p>
+    <section id="instructions" class="border border-danger mx-2 mb-5 p-2">
+      <h4 class="mb-3">Instructions</h4>
+      <p class="ml-2">You will be given a random number at the start of the grame.</p>
+      <p class="ml-2">There are four crystals below.  By clicking on a crystal you will add a specific amount of points to your total score.</p>
+      <p class="ml-2">You win the game by matching your total score to the random number, you lose the game if your total score goes above the random number.</p>
+      <p class="ml-2">The value of each crystal is hidden from you until you click on it.</p>
+      <p class="ml-2">When the game starts, the program will change the values of each crystal.</p>
     </section>
-    <ul id="aiRandomNum" class="list-group">
-      <li class="list-group-item active">HAL's Random #</li>
-      <li class="list-group-item"><span id="sp-aiRandomNum">0</span></li>
-    </ul>
-    <ul id="scoreCard" class="list-group">
-      <li class="list-group-item active" id="scoreCardTitle">Score Card</li>
-      <li hidden class="list-group-item" id="message"></li>
-      <li class="list-group-item">Wins: <span id="sp-wins">0</span></li>
-      <li class="list-group-item">Losses: <span id="sp-losses">0</span></li>
-    </ul>
-
-    <div id="cystalJar">
-      <div id="crystals" class="bd-example bd-example-images btn">
-        <img id="redCrystal"    src="assets/img/red.jpg"    alt="red crystal"     class="crystal rounded-circle toggle" />
-        <img id="blueCrystal"   src="assets/img/blue.jpg"   alt="blue crystal"    class="crystal rounded-circle toggle" />
-        <img id="yellowCrystal" src="assets/img/yellow.jpg" alt="yellow crystal"  class="crystal rounded-circle toggle" />
-        <img id="greenCrystal"  src="assets/img/green.jpg"  alt="green crystal"   class="crystal rounded-circle toggle" />
+    <div class="row mx-1">
+      <div class="col-md-6 text-center mb-1">
+        <ul id="aiRandomNum" class="list-group">
+          <li class="list-group-item active">HAL Random Number</li>
+          <li class="list-group-item"><span id="sp-aiRandomNum">0</span></li>
+        </ul>
+        <ul id="totalScore" class="list-group mt-1">
+          <li class="list-group-item active" id="scoreLabel">Your total score</li>
+          <li class="list-group-item" id="scoreTotal"><span id="sp-totalScore">0</span></li>
+        </ul>
+      </div>
+      <div class="col-md-6 mb-1">
+        <ul id="scoreCard" class="list-group h-100">
+          <li class="list-group-item list-group-item-action list-group-item-secondary active" id="scoreCardTitle">Score Card</li>
+          <li hidden class="list-group-item" id="message"></li>
+          <li class="list-group-item h-50">Wins: <span id="sp-wins">0</span></li>
+          <li class="list-group-item h-50">Losses: <span id="sp-losses">0</span></li>
+        </ul>
       </div>
     </div>
 
-    <div id="scoreLabel">
-      <h3>Your total score is:</h3>
-    </div>
-
-    <div id="scoreTotal">
-      <span id="sp-totalScore">0</span>
+    <div id="cystalJar" class="row my-5">
+      <div class="col-xs-12 btn">
+        <div id="crystals" class="bd-example bd-example-images">
+          <img id="redCrystal"    src="assets/img/red.jpg"    alt="red crystal"     class="crystal rounded-circle crystalBtn" />
+          <img id="blueCrystal"   src="assets/img/blue.jpg"   alt="blue crystal"    class="crystal rounded-circle crystalBtn" />
+          <img id="yellowCrystal" src="assets/img/yellow.jpg" alt="yellow crystal"  class="crystal rounded-circle crystalBtn" />
+          <img id="greenCrystal"  src="assets/img/green.jpg"  alt="green crystal"   class="crystal rounded-circle crystalBtn" />
+        </div>
+      </div>
     </div>
 
     <footer>
