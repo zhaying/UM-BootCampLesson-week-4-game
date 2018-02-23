@@ -60,7 +60,8 @@ To that end, do not refresh the page as a means to restart the game.
 
 // BGN VARIABLES
 var bucket        = [];
-var scoreBucket   = [];
+var winsBucket    = [];
+var lossesBucket  = [];
 var totalWins     = 0;
 var totalLosses   = 0;
 var totalScore    = 0;
@@ -171,12 +172,21 @@ var crystalCollector = function(crystalNumber) {
 };//fun crystalCollector
 
 // SOCRE NUMBER COLLECTOR
-var scoreCollector = function(scoreNumber) {
+var winsCollector = function(scoreNumber) {
   //ADD crystal numbers to the array
-  scoreBucket.push(scoreNumber);
+  winsBucket.push(scoreNumber);
   //Testing
-  console.log("crystalBucket:",scoreBucket);
-  return scoreBucket;
+  console.log("crystalBucket:",winsBucket);
+  return winsBucket;
+
+};//fun crystalCollector
+
+var lossesCollector = function(scoreNumber) {
+  //ADD crystal numbers to the array
+  lossesBucket.push(scoreNumber);
+  //Testing
+  console.log("crystalBucket:",lossesBucket);
+  return lossesBucket;
 
 };//fun crystalCollector
 
@@ -199,7 +209,7 @@ var bucketAdder = function(arrayOfNumbers) {
   }//END for
   return total;
 
-};//fun
+};//fun bucketAdder
 
 var whoWon = function() {
   //VARIABLES
@@ -212,7 +222,7 @@ var whoWon = function() {
     //VARIABLES
     message = "You WIN!";
     var wins = 1;
-    var winsBucket  = scoreCollector(wins);
+    var winsBucket  = winsCollector(wins);
     totalWins       = bucketAdder(winsBucket);
     //Testing
     console.log(message,wins);
@@ -232,7 +242,7 @@ var whoWon = function() {
     //VARIABLES
     message = "You Lose!";
     var loss = 1;
-    var lossesBucket  = scoreCollector(loss);
+    var lossesBucket  = lossesCollector(loss);
     totalLosses       = bucketAdder(lossesBucket);
     //Testing
     console.log("You Lose!",loss);
