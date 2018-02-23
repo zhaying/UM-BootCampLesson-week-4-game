@@ -1,8 +1,9 @@
 /* CSS */
 body {
    background-image: url("../img/bg.jpg");
-   /* background-repeat: round no-repeat; */
    background-color: #cccccc;
+   background-repeat: no-repeat;
+   background-size: 1920px 1080px;
 }
 /*
 font-family: 'Playfair Display SC', serif;
@@ -101,5 +102,15 @@ header {
 @media only screen and (max-width: 560px) {
   .board h1 {
     font-size: 24px;
+  }
+  body {
+    background-repeat: no-repeat;
+    background-size: 1080px 1920px;
+  }
+}
+@media only screen and (max-width: 1080px) {
+  body {
+    background-repeat: no-repeat;
+    background-size: 1080px 1920px;
   }
 }
