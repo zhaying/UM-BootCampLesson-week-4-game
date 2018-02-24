@@ -90,21 +90,7 @@ header {
     text-transform: uppercase;
 }
 /* Total Score */
-@media only screen and (max-width: 560px) {
-  .board h1 {
-    font-size: 24px;
-  }
-  body {
-    background-repeat: no-repeat;
-    background-size: 1080px 1920px;
-  }
-}
-@media only screen and (max-width: 1080px) {
-  body {
-    background-repeat: no-repeat;
-    background-size: 2080px 2920px;
-  }
-}
+
 
 .heavy {
   opacity: 1.1 !important;
@@ -212,7 +198,7 @@ z-index: -1;
   margin: 30%;
   background: white;
   border-radius: 50%;
-  transform: translateX(-90px) translateY(15px) skewX(1deg) skewY(2deg);
+  transform: translateX(1em) translateY(15px) skewX(1deg) skewY(2deg);
   position: absolute;
 }
 .ball .eight:before {
@@ -230,4 +216,22 @@ z-index: -1;
   font-family: Arial;
   font-size: 2.5em;
   line-height: 2.6em;
+}
+
+
+@media only screen and (max-width: 560px) {
+  .board h1 {
+    font-size: 24px;
+  }
+  body {
+    background-repeat: no-repeat;
+    background-size: 1080px 1920px;
+  }
+}
+
+@media only screen and (max-width: 1080px) {
+  body {
+    background-repeat: no-repeat;
+    background-size: 2080px 2920px;
+  }
 }
