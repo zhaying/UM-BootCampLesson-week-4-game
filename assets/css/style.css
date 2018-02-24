@@ -244,3 +244,6 @@ z-index: -1;
   margin: auto;
     width: 100%;
 }
+#imgList {
+  padding-left: 18%;
+}
