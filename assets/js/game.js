@@ -141,9 +141,13 @@ function statusMessage(message){
 
   var updateMessage = $("#message");
   updateMessage.text(message);
-  updateMessage.animate({ left: "-=50px" }, 1000 );
-  updateMessage.animate({ left: "+=150px" }, 1000 );
-  updateMessage.animate({ left: "-=100px" }, 1000 );
+  updateMessage.transition({ scale: [1.11] });
+  updateMessage.transition({ scale: [1] });
+  //updateMessage.animate({ scale: -2 }, 1000 );
+
+  // updateMessage.animate({ left: "-=50px" }, 1000 );
+  // updateMessage.animate({ left: "+=150px" }, 1000 );
+  // updateMessage.animate({ left: "-=100px" }, 1000 );
   return updateMessage.text(message);
 }//end statusMessage
 
@@ -161,9 +165,20 @@ function resetTotalScore() {
 
 };//end resetTotalScore
 
+// shake eight BALL
+var shakeBall = function(){
+  var ball = $("#ball");
+  ball.animate({ left: "+=10px" }, 100 );
+  ball.animate({ left: "-=10px" }, 100 );
+  ball.animate({ left: "+=10px" }, 100 );
+  ball.animate({ left: "-=10px" }, 100 );
+};
+// END shake eight BALL
+
 function resetGame() {
   resetTotalScore();
   createHalRandom();
+  shakeBall();
   resetCrystals();
 }//end resetGame
 
@@ -261,7 +276,7 @@ var whoWon = function() {
     //Show Message
     var theMessage = $("#message");
     theMessage.removeAttr("hidden");
-    theMessage.css('color','#FF0000');
+    theMessage.css('color','#FF0048');
     statusMessage(message);
     resetGame();
 
