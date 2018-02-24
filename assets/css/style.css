@@ -116,6 +116,7 @@ header {
   border: 1px solid rgba(255,180,0,0.4);
   border-radius: 2px;
 }
+
 .light-no {
   opacity: .9;
     filter: alpha(opacity=50); /* For IE8 and earlier */
@@ -123,15 +124,17 @@ header {
   border: 1px solid rgba(255,180,0,0.4);
   border-radius: 1px;
 }
+
 #sp-totalScore {
   color: red;
   font-size: 36px;
   font-weight: bold;
-  }
+}
+
 #sp-aiRandomNum,#sp-losses,#sp-wins,#message,#sp-wins-label,#sp-losses-label {
   color: red;
   font-weight: bold;
-  }
+}
 
 /* HAL BALL */
 .ball {
