@@ -344,6 +344,7 @@ deck.volume = 0.1;
   //Assign the random crystal number to the ui.
   var uiRedCrystal = $("#redCrystal");
   uiRedCrystal.click(function() {
+    window.navigator.vibrate(200); // vibrate for 200ms
     //Testing
     //console.log("uiRedCrystal:",redCrystal);
     //Add crystal to bucket
@@ -361,6 +362,7 @@ deck.volume = 0.1;
 
   var uiBlueCrystal = $("#blueCrystal");
   uiBlueCrystal.click(function() {
+    window.navigator.vibrate(200); // vibrate for 200ms
     //Testing
     console.log("uiBlueCrystal:",blueCrystal);
     //Add crystal to bucket
@@ -378,6 +380,7 @@ deck.volume = 0.1;
 
   var uiYellowCrystal = $("#yellowCrystal");
   uiYellowCrystal.click(function() {
+    window.navigator.vibrate(200); // vibrate for 200ms
     //Testing
     console.log("uiYellowCrystal:",yellowCrystal);
     //Add crystal to bucket
@@ -395,6 +398,7 @@ deck.volume = 0.1;
 
   var uiGreenCrystal = $("#greenCrystal");
   uiGreenCrystal.click(function() {
+    window.navigator.vibrate(200); // vibrate for 200ms
     //Testing
     console.log("uiGreenCrystal:",greenCrystal);
     //Add crystal to bucket
