@@ -141,6 +141,9 @@ function statusMessage(message){
 
   var updateMessage = $("#message");
   updateMessage.text(message);
+  updateMessage.animate({ left: "-=50px" }, 1000 );
+  updateMessage.animate({ left: "+=150px" }, 1000 );
+  updateMessage.animate({ left: "-=100px" }, 1000 );
   return updateMessage.text(message);
 }//end statusMessage
 
@@ -232,9 +235,11 @@ var whoWon = function() {
     //Update ui
     var uiWins = $("#sp-wins");
     uiWins.text(totalWins);
+
     //Show Message
     var theMessage = $("#message");
     theMessage.removeAttr("hidden");
+    theMessage.css('color','#49fb35');
     statusMessage(message);
     resetGame();
 
@@ -252,9 +257,11 @@ var whoWon = function() {
     //Update ui
     var uiLosses = $("#sp-losses");
     uiLosses.text(totalLosses);
+
     //Show Message
     var theMessage = $("#message");
     theMessage.removeAttr("hidden");
+    theMessage.css('color','#FF0000');
     statusMessage(message);
     resetGame();
 

@@ -18,9 +18,7 @@
     <link rel="stylesheet" href="assets/css/style.css">
 
     <!-- import css and js tools -->
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-            integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-            crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
     <!-- custom js -->
     <script src="assets/js/jquery.novacancy.min.js"></script>
@@ -58,7 +56,7 @@
 
       <!-- totalscore row -->
       <div class="row">
-        <!-- totalscore col -->
+        <!-- totalscore left col -->
         <div class="col-xs-6">
           <!-- TOTAL SCORE -->
           <ul id="totalScore" class="list-group">
@@ -66,20 +64,21 @@
             <li class="list-group-item light text-center" id="scoreTotal"><span id="sp-totalScore">0</span></li>
           </ul><!-- TOTAL SCORE -->
 
-        </div><!-- totalscore col -->
-        <!-- audio col -->
+        </div><!-- totalscore left col -->
+
+        <!-- audio right col -->
         <div class="col-xs-6 ml-5 mt-4">
           <!-- MUSIC -->
           <audio id="cassettePlayer" controls loop autoplay class="rounded-circle pull-right">
             <source src="assets/mus/st.mp3" type="audio/mpeg">
           Your browser does not support the audio element.
           </audio>
-        </div><!-- audio col -->
+        </div><!-- audio right col -->
       </div><!-- totalscore row -->
 
-      <!-- score row -->
+      <!-- game row -->
       <div class="row">
-        <!-- score left col -->
+        <!-- game left col -->
         <div class="col-md-6 text-center mb-1">
           <div class="row">
             <!-- HAL -->
@@ -89,26 +88,14 @@
                 <span id="sp-halRandom" class="eight" data-random="8"></span>
               </figure>
             </section>
-            <!-- ul id="aiRandomNum" class="list-group">
-              <li class="list-group-item list-group-item-action list-group-item-secondary active">HAL Random Number</li>
-              <li class="list-group-item light"><span id="sp-aiRandomNum">0</span></li>
-            </ul --><!-- HAL -->
           </div>
+          <img id="redCrystal"    src="assets/img/red.jpg"    alt="red crystal"     class="crystal crystalBtn" />
+          <img id="blueCrystal"   src="assets/img/blue.jpg"   alt="blue crystal"    class="crystal heavy rounded-circle crystalBtn" />
+          <img id="yellowCrystal" src="assets/img/yellow.jpg" alt="yellow crystal"  class="crystal heavy crystalBtn" />
+          <img id="greenCrystal"  src="assets/img/green.jpg"  alt="green crystal"   class="crystal heavy rounded-circle crystalBtn" />
+        </div><!-- game left col -->
 
-          <!-- crystal col -->
-
-            <img id="redCrystal"    src="assets/img/red.jpg"    alt="red crystal"     class="crystal crystalBtn" />
-            <img id="blueCrystal"   src="assets/img/blue.jpg"   alt="blue crystal"    class="crystal heavy rounded-circle crystalBtn" />
-            <img id="yellowCrystal" src="assets/img/yellow.jpg" alt="yellow crystal"  class="crystal heavy crystalBtn" />
-            <img id="greenCrystal"  src="assets/img/green.jpg"  alt="green crystal"   class="crystal heavy rounded-circle crystalBtn" />
-
-          <!-- TOTAL SCORE -->
-          <!-- ul id="totalScore" class="list-group mt-1">
-            <li class="list-group-item list-group-item-action list-group-item-secondary active" id="scoreLabel">Your total score</li>
-            <li class="list-group-item light" id="scoreTotal"><span id="sp-totalScore">0</span></li>
-          </ul --><!-- TOTAL SCORE -->
-        </div><!-- score left col -->
-        <!-- score right col -->
+        <!-- game right col -->
         <div class="col-md-6 mb-1">
           <!-- SOCRE CARD -->
           <ul id="scoreCard" class="list-group h-100">
@@ -117,19 +104,8 @@
             <li class="list-group-item h-50 light-no"><span id="sp-wins-label">Wins:</span> <span id="sp-wins">0</span></li>
             <li class="list-group-item h-50 light"><span id="sp-losses-label">Losses:</span> <span id="sp-losses">0</span></li>
           </ul><!-- SOCRE CARD -->
-        </div><!-- score right col -->
-      </div><!-- score row -->
-
-      <!-- crystal row -->
-      <!-- div class="row"
-        <!-- crystal col --
-        <div class="col-xs-12">
-          <img id="redCrystal"    src="assets/img/red.jpg"    alt="red crystal"     class="crystal crystalBtn" />
-          <img id="blueCrystal"   src="assets/img/blue.jpg"   alt="blue crystal"    class="crystal heavy rounded-circle crystalBtn" />
-          <img id="yellowCrystal" src="assets/img/yellow.jpg" alt="yellow crystal"  class="crystal heavy crystalBtn" />
-          <img id="greenCrystal"  src="assets/img/green.jpg"  alt="green crystal"   class="crystal heavy rounded-circle crystalBtn float-right" />
-        </div><!-- crystal col --
-      </div --><!-- crystal row -->
+        </div><!-- game right col -->
+      </div><!-- game row -->
 
       <!-- footer row -->
       <div id="004" class="row mt-5">
