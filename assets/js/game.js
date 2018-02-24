@@ -90,8 +90,11 @@ function createHalRandom() {
   //Assign the random ai number to the ui.
   var uiHal = $("#sp-aiRandomNum");
   uiHal.text(halRandomNum);
+  var uiHalBall = $('#sp-halRandom');
+  //uiHalBall.attr('data-before','9');
+  //uiHalBall.dataset.random;
+  uiHalBall.attr('data-random', halRandomNum);
 };
-
 // RANDOM NUMBER BETWEEN TWO VALUES
 function getRandomArbitrary(min, max) {/* https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random */
   min = Math.ceil(min);
@@ -300,7 +303,7 @@ $(document).ready(function(){
     'off': 1,
     'color': 'Red',
     'glow': ['0 0 80px Red', '0 0 30px FireBrick', '0 0 6px DarkRed']
-    
+
   });
 
   // Retrieve Hals random number;
