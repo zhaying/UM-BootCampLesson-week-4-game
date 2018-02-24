@@ -287,6 +287,8 @@ var whoWon = function() {
 
 // BGN LOGIC----------------------------------------------------------
 $(document).ready(function(){
+  var deck = document.getElementById("cassettePlayer");
+deck.volume = 0.1;
 
   $('#no').novacancy({
         'reblinkProbability': 0.1,
