@@ -61,7 +61,7 @@
       <!-- totalscore row ----------------------------------------------------->
       <div class="row">
         <!-- totalscore left col -->
-        <div class="col-xs-12 col-md-2">
+        <div class="col-xs-12 col-lg-3">
           <!-- TOTAL SCORE -->
           <ul id="totalScore" class="list-group">
             <li class="list-group-item list-group-item-action list-group-item-secondary active" id="scoreLabel">Your total score</li>
@@ -71,9 +71,9 @@
         </div><!-- totalscore left col -->
 
         <!-- audio right col -->
-        <div class="col-xs-12 col-md-6 mt-5 ml-5">
+        <div class="col-xs-12 col-lg-6 mt-5">
           <!-- MUSIC -->
-          <audio id="cassettePlayer" controls loop class="rounded-circle ml-5">
+          <audio id="cassettePlayer" controls loop autoplay class="rounded-circle ml-5">
             <source src="assets/mus/st.mp3" type="audio/mpeg">
           Your browser does not support the audio element.
           </audio>
@@ -83,28 +83,34 @@
       <!-- game row ----------------------------------------------------------->
       <div class="row">
         <!-- game left col -->
-        <div class="col-xs-12 col-md-6 mb-1">
+        <div class="col-xs-12 col-lg-6 mb-1">
           <div class="row">
-            <!-- HAL -->
-            <section id="stage" class="stage">
-              <figure id="ball" class="ball">
-                <span id="shadow" class="shadow"></span>
-                <span id="sp-halRandom" class="eight" data-random="8"></span>
-              </figure>
-            </section>
-          </div>
-          <img id="redCrystal"    src="assets/img/red.jpg"
-            alt="red crystal"     class="crystal crystalBtn ml-3" />
-          <img id="blueCrystal"   src="assets/img/blue.jpg"
-            alt="blue crystal"    class="crystal heavy rounded-circle crystalBtn ml-3" />
-          <img id="yellowCrystal" src="assets/img/yellow.jpg"
-            alt="yellow crystal"  class="crystal heavy crystalBtn ml-3" />
-          <img id="greenCrystal"  src="assets/img/green.jpg"
-            alt="green crystal"   class="crystal heavy rounded-circle crystalBtn ml-3" />
+            <div class="col-xs-12 col-lg-12 mb-1">
+              <!-- HAL -->
+              <section id="stage" class="stage">
+                <figure id="ball" class="ball">
+                  <span id="shadow" class="shadow"></span>
+                  <span id="sp-halRandom" class="eight" data-random="8"></span>
+                </figure>
+              </section>
+            </div>
+          </div><!-- game in row 1 -->
+          <div class="row">
+            <div class="col-xs-12 mb-1">
+              <img id="redCrystal"    src="assets/img/red.jpg"
+                alt="red crystal"     class="crystal crystalBtn ml-5" />
+              <img id="blueCrystal"   src="assets/img/blue.jpg"
+                alt="blue crystal"    class="crystal heavy rounded-circle crystalBtn ml-3" />
+                <img id="yellowCrystal" src="assets/img/yellow.jpg"
+                  alt="yellow crystal"  class="crystal heavy crystalBtn ml-3" />
+                <img id="greenCrystal"  src="assets/img/green.jpg"
+                  alt="green crystal"   class="crystal heavy rounded-circle crystalBtn ml-3" />
+            </div>
+          </div><!-- game in row 2 -->
         </div><!-- game left col -->
 
         <!-- game right col -->
-        <div class="col-sm-12 col-md-6 mb-1 mt-2">
+        <div class="col-sm-12 col-lg-6 mb-1 mt-2">
           <!-- SOCRE CARD -->
           <ul id="scoreCard" class="list-group h-100">
             <li class="list-group-item list-group-item-action list-group-item-secondary active" id="scoreCardTitle">Score Card</li>
