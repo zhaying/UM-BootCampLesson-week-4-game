@@ -79,6 +79,7 @@ header {
     border-radius: 4px;
     width: 95%;
     margin: 50px auto 0 auto;
+    margin-top:5px;
     padding: 20px;
     background-color: #000;
 }
@@ -234,4 +235,12 @@ z-index: -1;
     background-repeat: no-repeat;
     background-size: 2080px 2920px;
   }
+}
+.rowBoard {
+  top: 0;
+  margin-top: 0;
+}
+#cassettePlayer {
+  margin: auto;
+    width: 100%;
 }
