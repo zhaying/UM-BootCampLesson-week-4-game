@@ -58,361 +58,428 @@ To that end, do not refresh the page as a means to restart the game.
 
 /* --------BGN CODE----------------- */
 
-// BGN VARIABLES
-var bucket        = [];
-var winsBucket    = [];
-var lossesBucket  = [];
-var totalWins     = 0;
-var totalLosses   = 0;
-var totalScore    = 0;
-var halRandomNum  = 0;
-// END VARIABLES
+// FUNCTIONS
 
-// BGN FUNCTIONS-----------------------------------------------------------
-
-// RANDOM NUMBER FOR AI
-var aiRandom = function(min,max){
-  // VARIABLES
-  var aiRandomNum = 0;
-  // function name
-  console.log("aiRandom FUN");
-  // call random number generator
-  aiRandomNum = getRandomArbitrary(min, max);
-  // Testing
-  //console.log("aiRandomNum:",aiRandomNum);
-  return aiRandomNum;
-
-};//fun aiRandom
-
-function createHalRandom() {
-  // name for this ai
-  halRandomNum         = aiRandom(19, 121); //(inclusive,exclusive)
-  //Assign the random ai number to the ui.
-  var uiHal = $("#sp-aiRandomNum");
-  uiHal.text(halRandomNum);
-  var uiHalBall = $('#sp-halRandom');
-  //uiHalBall.attr('data-before','9');
-  //uiHalBall.dataset.random;
-  uiHalBall.attr('data-random', halRandomNum);
-};
-// RANDOM NUMBER BETWEEN TWO VALUES
-function getRandomArbitrary(min, max) {/* https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random */
+var getRandomArbitrary = function getRandomArbitrary(min, max) {/* https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random */
   min = Math.ceil(min);
   max = Math.floor(max);
   return Math.floor(Math.random() * (max - min)) + min; //The maximum is exclusive and the minimum is inclusive
+}; //end getRandomArbitrary
 
-}//fun getRandomArbitrary
+// OBJECTS
 
-// RANDOM NUMBER FOR CRYSTALS
-var crystalRandom = function(min,max,name){
-  // VARIABLES
-  var crystalRandomNum = 0;
-  var _name = name;
-  // function name
-  console.log("crystalRandom FUN for " + name);
-  // call random number generator
-  crystalRandomNum = getRandomArbitrary(min, max);
-  // Testing
-  console.log("crystalRandomNum:",name + ',' + crystalRandomNum);
-  return crystalRandomNum;
+var app = {
+  ui: {
+    board: { title: 'crystal collector' },
+    instructions: {
+      heading: 'Instructions',
+      content: 'You will be given a random number at the start of the grame. \
+                There are four crystals below. By clicking on a crystal you will add a specific amount of points to your total score. \
+                You win the game by matching your total score to the random number, \
+                you lose the game if your total score goes above the random number. \
+                The value of each crystal is hidden from you until you click on it. \
+                When the game starts, the program will change the values of each crystal.'
+    } //end instructins
+  }, //end ui
+  debugger: function(title,theVariable){
 
-};//fun crystalRandom
+      if(game.debug) {
+          console.log(title,theVariable);
+      };
+  }
+}; //end app
 
-function createCrystals() {
-  // name for the crystals
-  var redCrystal     = crystalRandom(1, 13, 'redCrystal'    );  //(inclusive,exclusive,rockName)
-  var blueCrystal    = crystalRandom(1, 13, 'blueCrystal'   );  //(inclusive,exclusive,rockName)
-  var yellowCrystal  = crystalRandom(1, 13, 'yellowCrystal' );  //(inclusive,exclusive,rockName)
-  var greenCrystal   = crystalRandom(1, 13, 'greenCrystal'  );  //(inclusive,exclusive,rockName)
-  var theCrystals = {};
-  theCrystals = {
-    red: redCrystal,
-    blue: blueCrystal,
-    yellow: yellowCrystal,
-    green: greenCrystal
-  };
-  console.log("objCrystals",theCrystals);
-  return theCrystals;
-};
+var game = {
+  debug: false,
+  scoreCard:  {
+      message: {
+          uiName: $("#message"),
+          won: 'You won!',
+          loss: 'You loss!',
+          updateUi: function (theText) {
+              //Give a shortname
+              var updateMessage = this.uiName;
+              updateMessage.text(theText);
+              updateMessage.transition({ scale: [1.11] });
+              updateMessage.transition({ scale: [1] });
+
+              return updateMessage.text(theText);
+          }
+      },
+      winBoard: {
+          uiName: $("#sp-wins"),
+          counter: null,
+          total: 0,
+          bucket: []
+      },
+      lossBoard: {
+          uiName: $("#sp-losses"),
+          counter: null,
+          total: 0,
+          bucket: []
+      }
+  },//socreCard
+  totalScore: {
+      number: 0,
+      uiName: $("#sp-totalScore"),
+      bucket: []
+  },//totalScore
+  magicEightBall: {
+      name: 'hal',
+      uiName: $("#sp-halRandom"),//"#sp-aiRandomNum"
+      createRandomNumber: function(){
+
+          // Testing
+          if (game.debug) {
+            console.log("magicEightBall: createRandomNumber");
+          };
+
+          // VARIABLES
+          var randomNumber = 0;
+
+          // RETURN a random number from 19 to 120
+          return randomNumber = getRandomArbitrary(19, 121); //(inclusive,exclusive)
+    },
+    updateUi: function(number) {
+        //Assign the random number to the ui.
+        game.magicEightBall.uiName.attr('data-random', number);
+      }
+  },//magicEightBall
+  crystals: {
+    red: {
+      name: 'redCrystal',
+      uiName: $("#redCrystal"),
+    },
+    blue: {
+      name: 'blueCrystal',
+      uiName: $("#blueCrystal"),
+    },
+    yellow: {
+      name: 'yellowCrystal',
+      uiName: $("#yellowCrystal"),
+    },
+    green: {
+      name: 'greenCrystal',
+      uiName: $("#greenCrystal"),
+    },
+    createRandomNumber: function(min,max){
+      // Testing
+      app.debugger('method','crystals.createRandomNumber');
+
+      // VARIABLES
+      var randomNumber = 0;
+
+      // RETURN a random number from 1 to 12
+      return randomNumber = getRandomArbitrary(1, 13); //(inclusive,exclusive)
+    },
+
+  },
+  resetBuckets: function() {
+      game.totalScore.bucket = [];
+  },
+  resetCounters: function() {
+      game.scoreCard.winBoard.counter   = 0;
+      game.scoreCard.lossBoard.counter  = 0;
+  },
+  resetTotalScore: function() {
+      game.totalScore.number    = 0;
+      game.totalScore.uiName.text(game.totalScore.number);
+  }
+
+}; // objGame
 
 
-function statusMessage(message){
-  var message;
+function createHalRandom() {
 
-  var updateMessage = $("#message");
-  updateMessage.text(message);
-  updateMessage.transition({ scale: [1.11] });
-  updateMessage.transition({ scale: [1] });
-  //updateMessage.animate({ scale: -2 }, 1000 );
+    // Create and assign a new random number
+    halRandomNum = game.magicEightBall.createRandomNumber();
 
-  // updateMessage.animate({ left: "-=50px" }, 1000 );
-  // updateMessage.animate({ left: "+=150px" }, 1000 );
-  // updateMessage.animate({ left: "-=100px" }, 1000 );
-  return updateMessage.text(message);
-}//end statusMessage
+    // Testing
+    app.debugger("reset halRandomNum:",halRandomNum);
 
-function resetCrystals() {
-  var theCrystalColor = createCrystals();
-}//end resetCrystals
+    // Update the ui to show the new random number
+    game.magicEightBall.updateUi(halRandomNum);
 
-function resetTotalScore() {
-  //Reset variables
-  bucket        = [];
-  totalScore    = 0;
-  //Assign the totalSocre number to the ui.
-  var uiTotalScore = $("#sp-totalScore");
-  uiTotalScore.text(totalScore);
+}; //end createHalRandom
 
-};//end resetTotalScore
+var createCrysatalsRandom = function() {
 
-// shake eight BALL
+    // Create and assign a new random number
+    redCrystalRandomNum     = game.crystals.createRandomNumber();
+    blueCrystalRandomNum    = game.crystals.createRandomNumber();
+    yellowCrystalRandomNum  = game.crystals.createRandomNumber();
+    greenCrystalRandomNum   = game.crystals.createRandomNumber();
+
+    // Testing
+    app.debugger("reset redCrystalRandomNum:",     redCrystalRandomNum     );
+    app.debugger("reset blueCrystalRandomNum:",    blueCrystalRandomNum    );
+    app.debugger("reset yellowCrystalRandomNum:",  yellowCrystalRandomNum  );
+    app.debugger("reset greenCrystalRandomNum:",   greenCrystalRandomNum   );
+
+
+}; //end createCrysatalsRandom
+
 var shakeBall = function(){
-  var ball = $("#ball");
-  ball.animate({ left: "+=10px" }, 100 );
-  ball.animate({ left: "-=10px" }, 100 );
-  ball.animate({ left: "+=10px" }, 100 );
-  ball.animate({ left: "-=10px" }, 100 );
-};
-// END shake eight BALL
 
-function resetGame() {
-  resetTotalScore();
-  createHalRandom();
-  shakeBall();
-  resetCrystals();
-}//end resetGame
+    // ui Ball name
+    var ball = $("#ball");
 
-// CRYSTAL NUMBER COLLECTOR
-var crystalCollector = function(crystalNumber) {
-  //ADD crystal numbers to the array
-  bucket.push(crystalNumber);
-  //Testing
-  console.log("crystalBucket:",bucket);
-  return bucket;
+    // animate the ball
+    ball.animate({ left: "+=10px" }, 100 );
+    ball.animate({ left: "-=10px" }, 100 );
+    ball.animate({ left: "+=10px" }, 100 );
+    ball.animate({ left: "-=10px" }, 100 );
 
-};//fun crystalCollector
+  }; //end shakeBall
 
-// SOCRE NUMBER COLLECTOR
-var winsCollector = function(scoreNumber) {
-  //ADD crystal numbers to the array
-  winsBucket.push(scoreNumber);
-  //Testing
-  console.log("crystalBucket:",winsBucket);
-  return winsBucket;
+  var resetGame = function() {
+    // reset these particular settings
+    game.resetBuckets();
+    game.resetCounters();
+    game.resetTotalScore();
+    createHalRandom();
+    createCrysatalsRandom();
+    shakeBall();
 
-};//fun crystalCollector
+}; //end resetGame
 
-var lossesCollector = function(scoreNumber) {
-  //ADD crystal numbers to the array
-  lossesBucket.push(scoreNumber);
-  //Testing
-  console.log("crystalBucket:",lossesBucket);
-  return lossesBucket;
-
-};//fun crystalCollector
-
-// CRYSTAL BUCKET ADDER
 var bucketAdder = function(arrayOfNumbers) {
-  //VARIABLES
-  var total   = 0;
-  // Loop through array and add values to total
-  for (var number in arrayOfNumbers) {
-    //VARIABLES
-    var value = arrayOfNumbers[number];
-    //ADD ARRAY values together
-    total += value;
-    //Testing
-    // console.log("index",number);
-    // console.log("arrayOfNumbers",arrayOfNumbers);
-    // console.log("value",value);
-    console.log("_total:",total);
 
-  }//END for
-  return total;
+    // Variables
+    var total   = 0;
 
-};//fun bucketAdder
+    // Testing
+    app.debugger('bucketAdder _arrayOfNumbers',arrayOfNumbers);
 
+    // Loop through array and add the array values
+    for (var number in arrayOfNumbers) {
+        // Variable
+        var value = parseInt(arrayOfNumbers[number]);
+
+        // Add value to total
+        total += value;
+
+        //Testing
+        app.debugger("total:",total);
+
+    } //end for
+
+    // RETURN bucketAdder total
+    return total;
+
+}; //end bucketAdder
+
+// Check to see if hal or the user won
 var whoWon = function() {
-  //VARIABLES
-  var message;
-  //Check who has won
-  console.log("won totalScore typeof",typeof(totalScore) +","+ totalScore);
-  console.log("won halRandomNum typeof",typeof(halRandomNum) +","+ halRandomNum);
 
-  if(totalScore == halRandomNum) {
-    //VARIABLES
-    message = "You WIN!";
-    var wins = 1;
-    var winsBucket  = winsCollector(wins);
-    totalWins       = bucketAdder(winsBucket);
     //Testing
-    console.log(message,wins);
-    //Update ui
-    var uiWins = $("#sp-wins");
-    uiWins.text(totalWins);
+    app.debugger("whoWon totalScore", game.totalScore.number);
+    app.debugger("whoWon halRandomNum", halRandomNum);
 
-    //Show Message
-    var theMessage = $("#message");
-    theMessage.removeAttr("hidden");
-    theMessage.css('color','#49fb35');
-    statusMessage(message);
-    resetGame();
+    if(game.totalScore.number === halRandomNum) {
+
+        // Add one to the counter
+        game.scoreCard.winBoard.counter = 1;
+
+        // Add the win to the bucket of wins
+        game.scoreCard.winBoard.bucket.push(game.scoreCard.winBoard.counter);
+
+        // Total winsBucket
+        game.scoreCard.winBoard.total = bucketAdder(game.scoreCard.winBoard.bucket);
+
+        // Testing
+        app.debugger('Message:', game.scoreCard.message.won);
+        app.debugger('wins:', game.scoreCard.lossBoard.counter);
+        app.debugger('winBoard bucket:', game.scoreCard.winBoard.bucket);
+
+        // Update socreCard ui
+        game.scoreCard.winBoard.uiName.text(game.scoreCard.winBoard.total);
+        game.scoreCard.message.uiName.removeAttr("hidden");
+        game.scoreCard.message.uiName.css('color','#49fb35');
+        game.scoreCard.message.updateUi(game.scoreCard.message.won);
+
+        // Reset game values for next play
+        resetGame();
+
+    }//end won if
+
+    if(game.totalScore.number > halRandomNum) {
+
+        // Add one to counter
+        game.scoreCard.lossBoard.counter = 1;
+
+        // Add the loss to the bucket of losses
+        game.scoreCard.lossBoard.bucket.push(game.scoreCard.lossBoard.counter);
+
+        // Total lossesBucket
+        game.scoreCard.lossBoard.total = bucketAdder(game.scoreCard.lossBoard.bucket);
+
+        // Testing
+        app.debugger('Message:', game.scoreCard.message.loss);
+        app.debugger('loss:', game.scoreCard.lossBoard.counter);
+        app.debugger('lossBoard bucket:', game.scoreCard.lossBoard.bucket);
+
+        // Update scoreCard ui
+        game.scoreCard.lossBoard.uiName.text(game.scoreCard.lossBoard.total);
+        game.scoreCard.message.uiName.removeAttr("hidden");
+        game.scoreCard.message.uiName.css('color','#FF0048');
+        game.scoreCard.message.updateUi(game.scoreCard.message.loss);
+
+        // Reset game values for next play
+        resetGame();
+
+    } //end loss if
+
+} //end whoWon
+
+// Assign the audio ui to a named variable
+var deck = document.getElementById("cassettePlayer");
+
+// Assign the billboard words to a variable
+var crystalBoard = $('#no');
+
+// Animation of the billboard word crystals
+var crystalAnimation = {
+  'reblinkProbability': 0.1,
+  'blinkMin': 0.2, 'blinkMax': 0.6,
+  'loopMin': 8, 'loopMax': 10,
+  'color': '#ffffff',
+  'glow': ['0 0 80px #ffffff', '0 0 30px #008000', '0 0 6px #0000ff']
+};
+
+// Assign collector word to a variable
+var collectorBoard = $('#vacancy');
+
+// Animation of the billboard word collector
+var collectorAnimation = {
+  'blink': 1,
+  'off': 1,
+  'color': 'Red',
+  'glow': ['0 0 80px Red', '0 0 30px FireBrick', '0 0 6px DarkRed']
+};
+
+// Create Hals random number
+var halRandomNum = game.magicEightBall.createRandomNumber();
+
+// Testing
+app.debugger("halRandomNum:",halRandomNum);
 
 
-  }//end if
+// Create the Crysals random number
+var redCrystalRandomNum     = game.crystals.createRandomNumber();
+var blueCrystalRandomNum    = game.crystals.createRandomNumber();
+var yellowCrystalRandomNum  = game.crystals.createRandomNumber();
+var greenCrystalRandomNum   = game.crystals.createRandomNumber();
 
-  if(totalScore > halRandomNum) {
-    //VARIABLES
-    message = "You Lose!";
-    var loss = 1;
-    var lossesBucket  = lossesCollector(loss);
-    totalLosses       = bucketAdder(lossesBucket);
-    //Testing
-    console.log("You Lose!",loss);
-    //Update ui
-    var uiLosses = $("#sp-losses");
-    uiLosses.text(totalLosses);
-
-    //Show Message
-    var theMessage = $("#message");
-    theMessage.removeAttr("hidden");
-    theMessage.css('color','#FF0048');
-    statusMessage(message);
-    resetGame();
-
-  }//end if
-
-}//whoWon
-
-// END FUNCTIONS--------------------------------------------------------
-
-// BGN NOTES
-/* HTML id's list
-    <section id="instructions">
-    <div id="aiRandomNum">
-      <span id="sp-aiRandomNum">0</span>
-    <div id="scoreCard">
-      <p>Wins: <span id="sp-wins">0</span></p>
-      <p>Losses: <span id="sp-losses">0</span></p>
-    <div id="cystalJar">
-      <ul id="crystals">
-        <li><img id="rock01" src="assets/img/red.jpg" alt="red crystal" height="42" width="42" /></li>
-        <li><img id="rock02" src="assets/img/blue.jpg" alt="blue crystal" height="42" width="42" /></li>
-        <li><img id="rock03" src="assets/img/yellow.jpg" alt="yellow crystal" height="42" width="42" /></li>
-        <li><img id="rock04" src="assets/img/green.jpg" alt="green crystal" height="42" width="42" /></li>
-    <div id="scoreLabel">
-    <div id="scoreTotal">
-      <span id="sp-totalScore">0</span>
-      <p id="whodat">Writtten by: ZhAYinG</p>
-*/
-// END NOTES
+// Testing
+app.debugger("redCrystalRandomNum:",    redCrystalRandomNum     );
+app.debugger("blueCrystalRandomNum:",   blueCrystalRandomNum    );
+app.debugger("yellowCrystalRandomNum:", yellowCrystalRandomNum  );
+app.debugger("greenCrystalRandomNum:",  greenCrystalRandomNum   );
 
 // BGN LOGIC----------------------------------------------------------
 $(document).ready(function(){
-  var deck = document.getElementById("cassettePlayer");
-deck.volume = 0.1;
 
-  $('#no').novacancy({
-        'reblinkProbability': 0.1,
-        'blinkMin': 0.2,
-        'blinkMax': 0.6,
-        'loopMin': 8,
-        'loopMax': 10,
-        'color': '#ffffff',
-        'glow': ['0 0 80px #ffffff', '0 0 30px #008000', '0 0 6px #0000ff']
-  });
+  // Change the volume of the audio player
+  deck.volume = 0.1;
 
-  $('#vacancy').novacancy({
-    'blink': 1,
-    'off': 1,
-    'color': 'Red',
-    'glow': ['0 0 80px Red', '0 0 30px FireBrick', '0 0 6px DarkRed']
+  // animate the main board word crysatal
+  crystalBoard.novacancy(crystalAnimation);
 
-  });
+  // animate the main board word collector
+  collectorBoard.novacancy(collectorAnimation);
 
-  // Retrieve Hals random number;
-  createHalRandom();
-
-  //Testing
-  console.log("hal:",halRandomNum);
-
-  var theCrystalColor = createCrystals();
-  //Testing
-  //var allCrystals = redCrystal +","+ blueCrystal +","+ yellowCrystal +","+ greenCrystal;
-  //console.log( 'rbyg Crystal:', allCrystals);
+  // update the ui to show the new random number
+  game.magicEightBall.updateUi(halRandomNum);
 
   //Assign the random crystal number to the ui.
-  var uiRedCrystal = $("#redCrystal");
-  uiRedCrystal.click(function() {
 
-    //Testing
-    //console.log("uiRedCrystal:",redCrystal);
-    //Add crystal to bucket
-    var redBucket = crystalCollector(theCrystalColor.red);
-    //Testing
-    console.log("redBucket",redBucket);
-    //Consume array and add VALUES
-    totalScore = bucketAdder(redBucket);
-    //Assign the totalSocre number to the ui.
-    var uiTotalScore = $("#sp-totalScore");
-    uiTotalScore.text(totalScore);
-    whoWon();
+  game.crystals.red.uiName.click(function() {
 
-  });//uiRedCrystal
+      // Add the random number to the red bucket array
+      game.totalScore.bucket.push(redCrystalRandomNum);
 
-  var uiBlueCrystal = $("#blueCrystal");
-  uiBlueCrystal.click(function() {
+      // Testing
+      app.debugger('red totalScore WhenClicked:',game.totalScore.bucket);
 
-    //Testing
-    console.log("uiBlueCrystal:",blueCrystal);
-    //Add crystal to bucket
-    var blueBucket = crystalCollector(theCrystalColor.blue);
-    //Testing
-    //console.log("blueBucket",blueBucket);
-    //Consume array and add VALUES
-    totalScore = bucketAdder(blueBucket);
-    //Assign the totalSocre number to the ui.
-    var uiTotalScore = $("#sp-totalScore");
-    uiTotalScore.text(totalScore);
-    whoWon();
+      // Add all red bucket values to totalScore
+      game.totalScore.number = bucketAdder(game.totalScore.bucket);
 
-  });//uiBlueCrystal
+      // Testing
+      app.debugger('red totalScore',game.totalScore.number);
 
-  var uiYellowCrystal = $("#yellowCrystal");
-  uiYellowCrystal.click(function() {
+      // Assign the totalScore number to the ui.
+      game.totalScore.uiName.text(game.totalScore.number);
+      // Check who won
+      whoWon();
 
-    //Testing
-    console.log("uiYellowCrystal:",yellowCrystal);
-    //Add crystal to bucket
-    var yellowBucket = crystalCollector(theCrystalColor.yellow);
-    //Testing
-    //console.log("yellowBucket",yellowBucket);
-    //Consume array and add VALUES
-    totalScore = bucketAdder(yellowBucket);
-    //Assign the totalSocre number to the ui.
-    var uiTotalScore = $("#sp-totalScore");
-    uiTotalScore.text(totalScore);
-    whoWon();
+  });// red
 
-  });//uiYellowCrystal
+  game.crystals.blue.uiName.click(function() {
 
-  var uiGreenCrystal = $("#greenCrystal");
-  uiGreenCrystal.click(function() {
+      // Add the random number to the bucket array
+      game.totalScore.bucket.push(blueCrystalRandomNum);
 
-    //Testing
-    console.log("uiGreenCrystal:",greenCrystal);
-    //Add crystal to bucket
-    var greenBucket = crystalCollector(theCrystalColor.green);
-    //Testing
-    //console.log("greenBucket",greenBucket);
-    //Consume array and add VALUES
-    totalScore = bucketAdder(greenBucket);
-    //Assign the totalSocre number to the ui.
-    var uiTotalScore = $("#sp-totalScore");
-    uiTotalScore.text(totalScore);
-    whoWon();
+      // Testing
+      app.debugger('blueBucketWhenClicked:',game.totalScore.bucket);
 
-  });//uiGreenCrystal
+      // Add all bucket values to totalScore number
+      game.totalScore.number = bucketAdder(game.totalScore.bucket);
+
+      // Testing
+      app.debugger('blue totalScore',game.totalScore.number);
+
+      // Assign the totalScore number to the ui.
+      game.totalScore.uiName.text(game.totalScore.number);
+
+      // Check who won
+      whoWon();
+
+  });// blue
+
+  game.crystals.yellow.uiName.click(function() {
+
+      // Add the random number to the bucket array
+      game.totalScore.bucket.push(yellowCrystalRandomNum);
+
+      // Testing
+      app.debugger('yellowBucketWhenClicked:',game.totalScore.bucket);
+
+      // Add all bucket values to totalScore number
+      game.totalScore.number = bucketAdder(game.totalScore.bucket);
+
+      // Testing
+      app.debugger('yellow totalScore',game.totalScore.number);
+
+      // Assign the totalScore number to the ui.
+      game.totalScore.uiName.text(game.totalScore.number);
+
+      // Check who won
+      whoWon();
+
+  });// yellow
+
+  game.crystals.green.uiName.click(function() {
+
+      // Add the random number to the bucket array
+      game.totalScore.bucket.push(greenCrystalRandomNum);
+
+      // Testing
+      app.debugger('greenBucketWhenClicked:',game.totalScore.bucket);
+
+      // Add all bucket values to totalScore number
+      game.totalScore.number = bucketAdder(game.totalScore.bucket);
+
+      // Testing
+      app.debugger('green totalScore',game.totalScore.number);
+
+      // Assign the totalScore number to the ui.
+      game.totalScore.uiName.text(game.totalScore.number);
+
+      // Check who won
+      whoWon();
+
+  });// green
 
 
 });//document.ready
