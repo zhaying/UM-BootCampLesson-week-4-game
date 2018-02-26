@@ -58,7 +58,7 @@ To that end, do not refresh the page as a means to restart the game.
 
 /* --------BGN CODE----------------- */
 
-// FUNCTIONS
+// GENERIC FUNCTIONS
 
 var getRandomArbitrary = function getRandomArbitrary(min, max) {/* https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random */
   min = Math.ceil(min);
@@ -69,8 +69,28 @@ var getRandomArbitrary = function getRandomArbitrary(min, max) {/* https://devel
 // OBJECTS
 
 var app = {
-  ui: {
-    board: { title: 'crystal collector' },
+    ui: {
+      board: {
+          titleTop: {
+              name: $('#no'),
+              animationOptions: { // Animation of the billboard word crystals
+                  'reblinkProbability': 0.1,
+                  'blinkMin': 0.2, 'blinkMax': 0.6,
+                  'loopMin': 8, 'loopMax': 10,
+                  'color': '#ffffff',
+                  'glow': ['0 0 80px #ffffff', '0 0 30px #008000', '0 0 6px #0000ff']
+              }
+          },
+          titleBottom: {
+              name: $('#vacancy'),
+              animationOptions: { // Animation of the billboard word collector
+                  'blink': 1,
+                  'off': 1,
+                  'color': 'Red',
+                  'glow': ['0 0 80px Red', '0 0 30px FireBrick', '0 0 6px DarkRed']
+              }
+          }
+        },
     instructions: {
       heading: 'Instructions',
       content: 'You will be given a random number at the start of the grame. \
@@ -79,7 +99,8 @@ var app = {
                 you lose the game if your total score goes above the random number. \
                 The value of each crystal is hidden from you until you click on it. \
                 When the game starts, the program will change the values of each crystal.'
-    } //end instructins
+    }, //end instructins
+    deck: document.getElementById("cassettePlayer")
   }, //end ui
   debugger: function(title,theVariable){
 
@@ -87,7 +108,7 @@ var app = {
           console.log(title,theVariable);
       };
   }
-}; //end app
+}; //end objApp
 
 var game = {
   debug: false,
@@ -186,7 +207,7 @@ var game = {
       game.totalScore.uiName.text(game.totalScore.number);
   }
 
-}; // objGame
+}; // end objGame
 
 
 function createHalRandom() {
@@ -232,13 +253,15 @@ var shakeBall = function(){
 
   }; //end shakeBall
 
-  var resetGame = function() {
-    // reset these particular settings
+var resetGame = function() {
+
     game.resetBuckets();
     game.resetCounters();
     game.resetTotalScore();
+
     createHalRandom();
     createCrysatalsRandom();
+
     shakeBall();
 
 }; //end resetGame
@@ -332,38 +355,11 @@ var whoWon = function() {
 
 } //end whoWon
 
-// Assign the audio ui to a named variable
-var deck = document.getElementById("cassettePlayer");
-
-// Assign the billboard words to a variable
-var crystalBoard = $('#no');
-
-// Animation of the billboard word crystals
-var crystalAnimation = {
-  'reblinkProbability': 0.1,
-  'blinkMin': 0.2, 'blinkMax': 0.6,
-  'loopMin': 8, 'loopMax': 10,
-  'color': '#ffffff',
-  'glow': ['0 0 80px #ffffff', '0 0 30px #008000', '0 0 6px #0000ff']
-};
-
-// Assign collector word to a variable
-var collectorBoard = $('#vacancy');
-
-// Animation of the billboard word collector
-var collectorAnimation = {
-  'blink': 1,
-  'off': 1,
-  'color': 'Red',
-  'glow': ['0 0 80px Red', '0 0 30px FireBrick', '0 0 6px DarkRed']
-};
-
 // Create Hals random number
 var halRandomNum = game.magicEightBall.createRandomNumber();
 
 // Testing
 app.debugger("halRandomNum:",halRandomNum);
-
 
 // Create the Crysals random number
 var redCrystalRandomNum     = game.crystals.createRandomNumber();
@@ -377,23 +373,22 @@ app.debugger("blueCrystalRandomNum:",   blueCrystalRandomNum    );
 app.debugger("yellowCrystalRandomNum:", yellowCrystalRandomNum  );
 app.debugger("greenCrystalRandomNum:",  greenCrystalRandomNum   );
 
-// BGN LOGIC----------------------------------------------------------
+// BGN LOGIC--------------------------------------------------------------------
 $(document).ready(function(){
 
   // Change the volume of the audio player
-  deck.volume = 0.1;
+  app.ui.deck.volume = 0.1;
 
-  // animate the main board word crysatal
-  crystalBoard.novacancy(crystalAnimation);
+  // Animate the main board word crysatal
+  app.ui.board.titleTop.name.novacancy(app.ui.board.titleTop.animationOptions);
 
-  // animate the main board word collector
-  collectorBoard.novacancy(collectorAnimation);
+  // Animate the main board word collector
+  app.ui.board.titleBottom.name.novacancy(app.ui.board.titleBottom.animationOptions);
 
-  // update the ui to show the new random number
+  // Update the ui to show the new random number
   game.magicEightBall.updateUi(halRandomNum);
 
-  //Assign the random crystal number to the ui.
-
+  // On click event listener
   game.crystals.red.uiName.click(function() {
 
       // Add the random number to the red bucket array
@@ -413,8 +408,9 @@ $(document).ready(function(){
       // Check who won
       whoWon();
 
-  });// red
+  });// end red click
 
+  // On click event listener
   game.crystals.blue.uiName.click(function() {
 
       // Add the random number to the bucket array
@@ -435,8 +431,9 @@ $(document).ready(function(){
       // Check who won
       whoWon();
 
-  });// blue
+  });// end blue click
 
+  // On click event listener
   game.crystals.yellow.uiName.click(function() {
 
       // Add the random number to the bucket array
@@ -457,8 +454,9 @@ $(document).ready(function(){
       // Check who won
       whoWon();
 
-  });// yellow
+  });// end yellow click
 
+  // On click event listener
   game.crystals.green.uiName.click(function() {
 
       // Add the random number to the bucket array
@@ -479,11 +477,11 @@ $(document).ready(function(){
       // Check who won
       whoWon();
 
-  });// green
+  });// end green click
 
 
-});//document.ready
+});// end document.ready
 
-// END LOGIC--------------------------------------------------------
+// END LOGIC--------------------------------------------------------------------
 
-/*--------END CODE---------------*/
+/*----END CODE----*/
