@@ -68,13 +68,26 @@ var app = {
             }
         },
         instructions: {
+            uiNameH: $('#instructions-h'),
+            uiNameP: $('#instructions-p'),
             heading: 'Instructions',
             content: 'You will be given a random number at the start of the grame. \
                       There are four crystals below. By clicking on a crystal you will add a specific amount of points to your total score. \
                       You win the game by matching your total score to the random number, \
                       you lose the game if your total score goes above the random number. \
                       The value of each crystal is hidden from you until you click on it. \
-                      When the game starts, the program will change the values of each crystal.'
+                      When the game starts, the program will change the values of each crystal.',
+            setInstructions: function() {
+              this.uiNameH.text(this.heading);
+              this.uiNameP.text(this.content);
+            }
+        },
+        developer: {
+            name: 'ZhAYinG',
+            uiName: $('#developer'),
+            setName: function() {
+              this.uiName.text(this.name);
+            }
         },
         deck: document.getElementById("cassettePlayer")
     }, //end ui
@@ -182,6 +195,20 @@ var game = {
     }
 };// end objGame
 
+// FUNCTIONS
+var shakeBall = function(){
+
+    // UI Ball name
+    var ball = $("#ball");
+
+    // Animate the ball
+    ball.animate({ left: "+=10px" }, 100 );
+    ball.animate({ left: "-=10px" }, 100 );
+    ball.animate({ left: "+=10px" }, 100 );
+    ball.animate({ left: "-=10px" }, 100 );
+
+  };// end shakeBall
+
 var createHalRandom = function() {
 
     // Create and assign a new random number
@@ -211,19 +238,6 @@ var createCrysatalsRandom = function() {
 
 
 };// end createCrysatalsRandom
-
-var shakeBall = function(){
-
-    // UI Ball name
-    var ball = $("#ball");
-
-    // Animate the ball
-    ball.animate({ left: "+=10px" }, 100 );
-    ball.animate({ left: "-=10px" }, 100 );
-    ball.animate({ left: "+=10px" }, 100 );
-    ball.animate({ left: "-=10px" }, 100 );
-
-  };// end shakeBall
 
 var resetGame = function() {
 
@@ -356,6 +370,12 @@ $(document).ready(function(){
 
   // Animate the main board word collector
   app.ui.board.titleBottom.name.novacancy(app.ui.board.titleBottom.animationOptions);
+
+  // Set Instructions
+  app.ui.instructions.setInstructions();
+
+  // Set devloper
+  app.ui.developer.setName();
 
   // Update the ui to show the new random number
   game.magicEightBall.updateUi(halRandomNum);
